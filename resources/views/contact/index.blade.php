@@ -1,7 +1,9 @@
-@extends('layouts.app')
+@extends('layouts.base')
 
 @section('content')
     <main>
+        <!-- Button trigger modal -->
+
         {{-- {{dd($message)}} --}}
         @if (@isset($message))
             <div class="alert alert-warning alert-dismissible fade show" role="alert">

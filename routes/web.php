@@ -14,12 +14,21 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('contact', [ContactController::class, 'index'])->name('contact.index');
-Route::get('contact/edit/{id}', [ContactController::class, 'edit'])->name('contact.edit');
-Route::post('contact/update/{id}', [ContactController::class, 'update'])->name('contact.update');
-Route::get('contact/delete/{id}', [ContactController::class, 'delete'])->name('contact.delete');
-Route::post('contact', [ContactController::class, 'save'])->name('contact.save');
+Route::group(['middleware' => ['auth']], function () {
+
+
+    Route::get('contact', [ContactController::class, 'index'])->name('contact.index');
+    Route::get('contact/edit/{id}', [ContactController::class, 'edit'])->name('contact.edit');
+    Route::post('contact/update/{id}', [ContactController::class, 'update'])->name('contact.update');
+    Route::get('contact/delete/{id}', [ContactController::class, 'delete'])->name('contact.delete');
+    Route::post('contact', [ContactController::class, 'save'])->name('contact.save');
+
+});
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->middleware('auth');
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
